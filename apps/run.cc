@@ -8,7 +8,6 @@
 using cinder::app::App;
 using cinder::app::RendererGl;
 
-
 namespace myapp {
 
 const int kSamples = 8;
