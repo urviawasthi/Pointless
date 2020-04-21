@@ -10,7 +10,6 @@
 using cinder::app::App;
 using cinder::app::RendererGl;
 
-
 namespace myapp {
 
 const int kSamples = 8;
@@ -20,6 +19,9 @@ const int kHeight = 800;
 void SetUp(App::Settings* settings) {
   settings->setWindowSize(kWidth, kHeight);
   settings->setTitle("My CS 126 Application");
+
+  Magick::InitializeMagick(R"(C:\Users\urvi\CLionProjects\Cinder\my_projects\final-project-urviawasthi)");
+
 }
 
 }  // namespace myapp
