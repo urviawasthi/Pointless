@@ -4,7 +4,7 @@
 #define FINALPROJECT_APPS_MYAPP_H_
 
 #include <cinder/app/App.h>
-
+#include <random>
 
 namespace myapp {
 
@@ -15,6 +15,14 @@ class MyApp : public cinder::app::App {
   void update() override;
   void draw() override;
   void keyDown(cinder::app::KeyEvent) override;
+
+ private:
+  void DrawCircleRandomly();
+
+ private:
+  std::random_device rd;     // only used once to initialise (seed) engine
+  std::uniform_int_distribution<int> uni; // guaranteed unbiased
+  std::mt19937 rng;    // random-number engine used (Mersenne-Twister in this case)
 };
 
 }  // namespace myapp
