@@ -10,35 +10,46 @@
 namespace myapp {
 
 using cinder::app::KeyEvent;
+using cinder::Color;
 using std::vector;
+
 
 MyApp::MyApp() { }
 
 void MyApp::setup() {
   // setup variables to generate random numbers
-  uni = std::uniform_int_distribution<int> (0,255); // guaranteed unbiased
+  position = std::uniform_int_distribution<int> (0, 800); // random position generator
+  rgb = std::uniform_int_distribution<int> (0, 255); // random rgb generator
+  size = std::uniform_int_distribution<int> (20, 40); // random rgb generator
+
   rng = std::mt19937 (rd());    // random-number engine used (Mersenne-Twister in this case)
 }
 
 void MyApp::update() { }
 
-void MyApp::draw() { }
+void MyApp::draw() {
+  DrawAllCircles();
+  DrawCircleRandomly();
+}
 
 void MyApp::keyDown(KeyEvent event) { }
 
 void MyApp::DrawCircleRandomly() {
+  cinder::gl::clear();
+
+  // assign a random color
+  float red = (float) rgb(rng) / 255;
+  float blue = (float) rgb(rng) / 255;
+  float green = (float) rgb(rng) / 255;
+  cinder::gl::color(Color(red, green, blue));
+
   // create a vector to hold coordinates for center of circle
-  vector<int> vect;
-/*  red = uni(rng);
-  blue = uni(rng);
-  green = uni(rng);
-  timer.start();
+  cinder::vec2 location;
+  location.x = position(rng);
+  location.y = position(rng);
 
-
-  const float rnow = red / 255;
-  const float bnow = blue / 255;
-  const float gnow = green / 255;
-  cinder::gl::color(Color(rnow, gnow, bnow));*/
-  //cinder::gl::drawSolidCircle();
+  // assign a random radius for our circle
+  float radius = size(rng);
+  cinder::gl::drawSolidCircle(location, radius);
 }
 }  // namespace myapp
