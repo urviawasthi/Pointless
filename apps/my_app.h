@@ -20,6 +20,7 @@ class MyApp : public cinder::app::App {
 
  private:
   void DrawCircleRandomly();
+  void DrawAllCircles();
 
  private:
   std::random_device rd;     // only used once to initialise (seed) engine

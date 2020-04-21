@@ -25,7 +25,10 @@ void MyApp::setup() {
 void MyApp::update() { }
 
 void MyApp::draw() {
-//  DrawAllCircles();
+  cinder::gl::enableAlphaBlending();
+  cinder::gl::clear();
+
+  DrawAllCircles();
   DrawCircleRandomly();
 }
 
@@ -46,5 +49,11 @@ void MyApp::DrawCircleRandomly() {
   cinder::gl::drawSolidCircle(circle.GetLocation(), circle.GetRadius());
 }
 
+void MyApp::DrawAllCircles() {
+  for (Circle circle : circles) {
+    cinder::gl::color(circle.GetColor());
+    cinder::gl::drawSolidCircle(circle.GetLocation(), circle.GetRadius());
+  }
+}
 
 }  // namespace myapp
