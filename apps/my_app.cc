@@ -1,4 +1,4 @@
-// Copyright (c) 2020 [Your Name]. All rights reserved.
+// Copyright (c) 2020 [Urvi Awasthi]. All rights reserved.
 
 #include "my_app.h"
 
