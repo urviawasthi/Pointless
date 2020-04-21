@@ -37,3 +37,17 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     target_compile_options(cinder-myapp PRIVATE
             /W3)
 endif ()
+
+cmake_minimum_required(VERSION 3.5)
+project(final-project-urviawasthi)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+set(SOURCE_FILES run.cc)
+
+add_executable(final-project-urviawasthi ${SOURCE_FILES})
+add_definitions( -DMAGICKCORE_QUANTUM_DEPTH=16 )
+add_definitions( -DMAGICKCORE_HDRI_ENABLE=0 )
+find_package(ImageMagick COMPONENTS Magick++)
+include_directories(${ImageMagick_INCLUDE_DIRS})
+target_link_libraries(final-project-urviawasthi ${ImageMagick_LIBRARIES})

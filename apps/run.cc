@@ -5,6 +5,8 @@
 
 #include "my_app.h"
 
+#include <Magick++.h>
+
 using cinder::app::App;
 using cinder::app::RendererGl;
 
