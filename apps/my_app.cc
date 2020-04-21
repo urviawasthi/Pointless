@@ -25,11 +25,15 @@ void MyApp::setup() {
 void MyApp::update() { }
 
 void MyApp::draw() {
-  cinder::gl::enableAlphaBlending();
+  //cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
 
-  DrawAllCircles();
-  DrawCircleRandomly();
+  //DrawAllCircles();
+  if (circles.size() < 1000) {
+    DrawCircleRandomly();
+  } else {
+    DrawAllCircles();
+  }
 }
 
 void MyApp::keyDown(KeyEvent event) { }
@@ -45,8 +49,8 @@ void MyApp::DrawCircleRandomly() {
   circles.push_back(circle);
 
   // lastly draw circle onto board
-  cinder::gl::color(circle.GetColor());
-  cinder::gl::drawSolidCircle(circle.GetLocation(), circle.GetRadius());
+  //cinder::gl::color(circle.GetColor());
+  //cinder::gl::drawSolidCircle(circle.GetLocation(), circle.GetRadius());
 }
 
 void MyApp::DrawAllCircles() {
