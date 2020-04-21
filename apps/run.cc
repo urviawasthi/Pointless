@@ -5,7 +5,6 @@
 
 #include "my_app.h"
 
-
 using cinder::app::App;
 using cinder::app::RendererGl;
 
