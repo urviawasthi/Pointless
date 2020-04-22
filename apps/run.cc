@@ -21,7 +21,6 @@ void SetUp(App::Settings* settings) {
   settings->setTitle("My CS 126 Application");
 
   Magick::InitializeMagick(R"(C:\Users\urvi\CLionProjects\Cinder\my_projects\final-project-urviawasthi)");
-
 }
 
 }  // namespace myapp
