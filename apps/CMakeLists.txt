@@ -38,20 +38,3 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
             /W3)
 endif ()
 
-cmake_minimum_required(VERSION 3.5)
-PROJECT(final-project-urviawasthi)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
-set(SOURCE_FILES run.cc)
-
-add_executable(final-project-urviawasthi ${SOURCE_FILES})
-add_definitions( -DMAGICKCORE_QUANTUM_DEPTH=16 )
-add_definitions( -DMAGICKCORE_HDRI_ENABLE=0 )
-set(ImageMagick C:\\Users\\urvi\\install\\ImageMagick-Windows\\ImageMagick)
-set(ImageMagick_INCLUDE_DIRS C:\\Users\\urvi\\install\\ImageMagick-Windows\\ImageMagick\\Magick++\\lib)
-set(ImageMagick_LIBRARIES C:\\Users\\urvi\\install\\ImageMagick-Windows\\ImageMagick\\Magick++\\lib)
-find_package(ImageMagick REQUIRED COMPONENTS Magick++ MagickCore)
-include_directories(${ImageMagick_INCLUDE_DIRS})
-link_directories(${ImageMagick_INCLUDE_DIRS})
-target_link_libraries(final-project-urviawasthi ${ImageMagick_LIBRARIES})

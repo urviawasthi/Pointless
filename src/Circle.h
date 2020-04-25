@@ -16,6 +16,7 @@ using cinder::Color;
 class Circle {
  public:
   Circle(const cinder::vec2& location);
+  void Draw();
   cinder::vec2 GetLocation();
   cinder::Color GetColor();
   float GetRadius();

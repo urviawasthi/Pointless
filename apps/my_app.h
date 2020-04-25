@@ -19,7 +19,7 @@ class MyApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
 
  private:
-  void DrawCircleRandomly();
+  void GenerateCircles();
   void DrawAllCircles();
 
  private:
@@ -27,7 +27,11 @@ class MyApp : public cinder::app::App {
   std::uniform_int_distribution<int> position; // guaranteed unbiased
   std::mt19937 rng;    // random-number engine used (Mersenne-Twister in this case)
 
-  std::vector<Circle> circles;
+  std::vector<Circle> circles; // vector with all circles
+  int array_B[1000][1000]; // array holding all blue values for pixel of image
+  int array_G[1000][1000]; // array holding all green values for pixel of image
+  int array_R[1000][1000]; // array holding all blue values for pixel of image
+
 };
 
 }  // namespace myapp

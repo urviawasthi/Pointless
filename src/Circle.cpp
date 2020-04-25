@@ -32,3 +32,7 @@ Circle::Circle(const Circle& circle2) {
   radius = circle2.radius;
   color = circle2.color;
 }
+void Circle::Draw() {
+  cinder::gl::color(this->GetColor());
+  cinder::gl::drawSolidCircle(this->GetLocation(), this->GetRadius());
+}
