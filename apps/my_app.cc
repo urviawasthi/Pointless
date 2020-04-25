@@ -1,5 +1,6 @@
 #include "my_app.h"
 
+#include <cinder/Rand.h>
 #include <cinder/app/App.h>
 #include <cinder/gl/draw.h>
 #include <cinder/gl/gl.h>
@@ -23,12 +24,48 @@ void MyApp::setup() {
   while (circles.size() < 1000) {
     GenerateCircles();
   }
+
+  // get the image as a surface
+  cinder::Surface myPicture(cinder::loadImage("assets/sun.jpg"));
+  cinder::Area area( 0, 0, 500, 500 );
+  cinder::Surface::Iter iter = myPicture.getIter( area );
+
+  // iterate through the rgb arrays and fill them with the value at that pixel
+  while( iter.line() ) {
+    while( iter.pixel() ) {
+      int x = iter.x();
+      int y = iter.y();
+      array_R[x][y] = iter.r() / 255; //TODO: make this float and divide by 255
+      array_B[x][y] = iter.b() / 255;
+      array_G[x][y] = iter.g() / 255;
+    }
+  }
 }
 
 void MyApp::update() { }
 
 void MyApp::draw() {
   cinder::gl::clear();
+
+  // save the current display as an image
+  //cinder::Surface first_window = copyWindowSurface();
+
+  // we're going to choose to either change the color, size, or position of a random circle //TODO: change size or position
+  int circle_num = cinder::Rand::randInt(1000);
+
+  // randomly choose whether to darken or lighten that color
+  Circle alter_circle = circles[circle_num];
+  float r = alter_circle.GetColor().r;
+  float g = alter_circle.GetColor().g;
+  float b = alter_circle.GetColor().b;
+  circles[circle_num].SetColor(cinder::Rand::randFloat(), g, b); // TODO: also make option for making circle lighter and make less random
+
+  // save the new display as an image
+  // if the square that we have altered in the new display is closer in color to the original image then we keep it
+
+  // else we continue with the old display
+
+  // then we're going to draw all circles
   DrawAllCircles();
 }
 

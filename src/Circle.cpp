@@ -1,7 +1,8 @@
 // Copyright (c) 2020 [Urvi Awasthi]. All rights reserved.
 
-
 #include "Circle.h"
+
+#include <cinder/Rand.h>
 
 Circle::Circle(const cinder::vec2& location){
     this->location = location; // previously set location
@@ -9,14 +10,17 @@ Circle::Circle(const cinder::vec2& location){
     // generate new radius and color here
 
     // assign a random color
-    float red = (float) rgb(rng) / 255;
-    float blue = (float) rgb(rng) / 255;
-    float green = (float) rgb(rng) / 255;
+    float red = cinder::Rand::randFloat();
+    float blue = cinder::Rand::randFloat();
+    float green = cinder::Rand::randFloat();
     this->color = Color(red, green, blue);
 
     // 2. assign a random radius
     float rand_size = size(rng);
     this->radius = rand_size;
+
+    // 3. assign a certain opacity to the circle
+    //TODO: change opacity
 }
 cinder::vec2 Circle::GetLocation(){
     return this->location;
@@ -35,4 +39,7 @@ Circle::Circle(const Circle& circle2) {
 void Circle::Draw() {
   cinder::gl::color(this->GetColor());
   cinder::gl::drawSolidCircle(this->GetLocation(), this->GetRadius());
+}
+void Circle::SetColor(float r, float g, float b) {
+  this->color = Color(r, g, b);
 }

@@ -28,9 +28,9 @@ class MyApp : public cinder::app::App {
   std::mt19937 rng;    // random-number engine used (Mersenne-Twister in this case)
 
   std::vector<Circle> circles; // vector with all circles
-  int array_B[1000][1000]; // array holding all blue values for pixel of image
-  int array_G[1000][1000]; // array holding all green values for pixel of image
-  int array_R[1000][1000]; // array holding all blue values for pixel of image
+  float array_B[500][500]; // array holding all blue values for pixel of image
+  float array_G[500][500]; // array holding all green values for pixel of image
+  float array_R[500][500]; // array holding all blue values for pixel of image
 
 };
 
