@@ -10,7 +10,7 @@ Circle::Circle(const cinder::vec2& location){
     // generate new radius and color here
 
     // assign an opacity to the circle
-    this->opacity = 0.7f;
+    this->opacity = 0.8f;
 
     // assign a random color
     float red = cinder::Rand::randFloat();
@@ -19,7 +19,7 @@ Circle::Circle(const cinder::vec2& location){
     this->color = cinder::ColorA(red, green, blue, opacity);
 
     // assign a random radius
-    float rand_size = size(rng);
+    int rand_size = size(rng);
     this->radius = rand_size;
 }
 cinder::vec2 Circle::GetLocation(){
@@ -28,13 +28,14 @@ cinder::vec2 Circle::GetLocation(){
 cinder::ColorA Circle::GetColor(){
     return this->color;
 }
-float Circle::GetRadius(){
+int Circle::GetRadius(){
     return this->radius;
 }
 Circle::Circle(const Circle& circle2) {
   location = circle2.location;
   radius = circle2.radius;
   color = circle2.color;
+  opacity = circle2.opacity;
 }
 void Circle::Draw() {
   cinder::gl::enableAlphaBlending();
