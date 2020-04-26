@@ -23,7 +23,7 @@ void MyApp::setup() {
   }
 
   // get the image as a surface
-  cinder::Surface myPicture(cinder::loadImage("assets/gradient.png"));
+  cinder::Surface myPicture(cinder::loadImage("assets/sun.jpg"));
   cinder::Area area( 0, 0, 500, 500 );
   cinder::Surface::Iter iter = myPicture.getIter( area );
 
@@ -59,18 +59,32 @@ void MyApp::draw() {
   float original_g = alter_circle.GetColor().g;
   float original_b = alter_circle.GetColor().b;
 
-  cinder::vec2 original_loc = alter_circle.GetLocation();
+  //cinder::vec2 original_loc = alter_circle.GetLocation();
 
-  int original_radius = alter_circle.GetRadius();
+  //int original_radius = alter_circle.GetRadius();
 
   // randomly choose whether to darken or lighten that color (the higher it is the lighter it gets)
   int darken = cinder::Rand::randInt(2);
+  // choose which rgb to darken
+  int which_val = cinder::Rand::randInt(3);
+
   if (darken == 1) { // darken the circle
-    circles[circle_num].SetColor(original_r - 0.2f, original_g - 0.2f, original_b - 0.2f);
+    if (which_val == 0) {
+      circles[circle_num].SetColor(original_r - 0.2f, original_g, original_b);
+    } else if (which_val == 1) {
+      circles[circle_num].SetColor(original_r, original_g - 0.2f, original_b);
+    } else {
+      circles[circle_num].SetColor(original_r, original_g, original_b - 0.2f);
+    }
   } else { // lighten the circle
-    circles[circle_num].SetColor(original_r + 0.2f, original_g + 0.2f, original_b + 0.2f);
+    if (which_val == 0) {
+      circles[circle_num].SetColor(original_r + 0.2f, original_g, original_b);
+    } else if (which_val == 1) {
+      circles[circle_num].SetColor(original_r, original_g + 0.2f, original_b);
+    } else {
+      circles[circle_num].SetColor(original_r, original_g, original_b + 0.2f);
+    }
   }
-  //TODO: do separately for rgb
 
   // apply changes
   //DrawAllCircles();
@@ -85,9 +99,9 @@ void MyApp::draw() {
   if (new_difference > original_difference) { // the new display is less similar to the original image
     // we undo changes
     if (darken == 1) { // make it lighter again
-      circles[circle_num].SetColor(original_r + 0.2f, original_g + 0.2f, original_b + 0.2f);
+      circles[circle_num].SetColor(original_r, original_g, original_b + 0.2f);
     } else { // make it darker again
-      circles[circle_num].SetColor(original_r - 0.2f, original_g - 0.2f, original_b - 0.2f);
+      circles[circle_num].SetColor(original_r, original_g, original_b - 0.2f);
     }
   }
 
