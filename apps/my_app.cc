@@ -23,7 +23,7 @@ void MyApp::setup() {
   }
 
   // get the image as a surface
-  cinder::Surface myPicture(cinder::loadImage("assets/sun.jpg"));
+  cinder::Surface myPicture(cinder::loadImage("assets/blue.jpg"));
   cinder::Area area( 0, 0, 500, 500 );
   cinder::Surface::Iter iter = myPicture.getIter( area );
 
