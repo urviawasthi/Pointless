@@ -10,7 +10,7 @@ Circle::Circle(const cinder::vec2& location){
     // generate new radius and color here
 
     // assign an opacity to the circle
-    this->opacity = 1;
+    this->opacity = 0.6f;
 
     // assign a random color
     float red = cinder::Rand::randFloat();
