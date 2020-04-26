@@ -23,8 +23,8 @@ void MyApp::setup() {
   }
 
   // get the image as a surface
-  cinder::Surface myPicture(cinder::loadImage("assets/sun.jpg"));
-  cinder::Area area( 0, 0, kWidth, kHeight );
+  cinder::Surface myPicture(cinder::loadImage("assets/gradient.png"));
+  cinder::Area area( 0, 0, 500, 500 );
   cinder::Surface::Iter iter = myPicture.getIter( area );
 
   // iterate through the rgb arrays and fill them with the value at that pixel
@@ -32,11 +32,12 @@ void MyApp::setup() {
     while( iter.pixel() ) {
       int x = iter.x();
       int y = iter.y();
-      array_R[x][y] = iter.r() / 255; //TODO: make this float and divide by 255
-      array_B[x][y] = iter.b() / 255;
-      array_G[x][y] = iter.g() / 255;
+      array_R[x][y] = (float) iter.r() / 255;
+      array_B[x][y] = (float) iter.b() / 255;
+      array_G[x][y] = (float) iter.g() / 255;
     }
   }
+
 }
 
 void MyApp::update() { }
@@ -45,16 +46,14 @@ void MyApp::draw() {
   cinder::gl::clear();
 
   // save the current display as a surface
-  cinder::Surface original_display = copyWindowSurface();
-
-  // first hope that correct thing is being captured
-  //cinder::gl::draw(cinder::gl::Texture2d::create(original_display));
+  //cinder::Surface original_display = copyWindowSurface();
 
   // we're going to choose to either change the color, size, or position of a random circle //TODO: change size or position
   int circle_num = cinder::Rand::randInt(num_of_circles);
 
   // first get the original position, size and color of selected circle
   Circle alter_circle = circles[circle_num];
+  float original_difference = CalculateColorDifference(alter_circle);
 
   float original_r = alter_circle.GetColor().r;
   float original_g = alter_circle.GetColor().g;
@@ -64,28 +63,40 @@ void MyApp::draw() {
 
   int original_radius = alter_circle.GetRadius();
 
-  // randomly choose whether to darken or lighten that color
-  circles[circle_num].SetColor(original_r + 0.1f, original_g + 0.1f, original_b + 0.1f); // TODO: also make option for making circle lighter and make less random
-  //circles[circle_num].SetColor(r - 0.1f, g - 0.1f, b - 0.1f);
+  // randomly choose whether to darken or lighten that color (the higher it is the lighter it gets)
+  int darken = cinder::Rand::randInt(2);
+  if (darken == 1) { // darken the circle
+    circles[circle_num].SetColor(original_r - 0.2f, original_g - 0.2f, original_b - 0.2f);
+  } else { // lighten the circle
+    circles[circle_num].SetColor(original_r + 0.2f, original_g + 0.2f, original_b + 0.2f);
+  }
+  //TODO: do separately for rgb
+
+  // apply changes
+  //DrawAllCircles();
 
   // save the new display as an image
-  cinder::Surface new_display = copyWindowSurface();
+  //cinder::Surface new_display = copyWindowSurface();
 
   // if the square that we have altered in the new display is closer in color to the original image then we keep it
-  // TODO: save stats for old display so that you don't have to recalculate every time!
-  int original_difference = CalculateColorDifference(original_display, original_loc, original_radius);
-  int new_difference = CalculateColorDifference(new_display, original_loc, original_radius);
-
+  //float original_difference = CalculateColorDifference(original_display, original_loc, original_radius);
+  //float new_difference = CalculateColorDifference(new_display, original_loc, original_radius);
+  float new_difference = CalculateColorDifference(circles[circle_num]);
   if (new_difference > original_difference) { // the new display is less similar to the original image
     // we undo changes
-    circles[circle_num].SetColor(original_r - 0.1f, original_g - 0.1f, original_b - 0.1f); // TODO: also make option for making circle lighter and make less random
+    if (darken == 1) { // make it lighter again
+      circles[circle_num].SetColor(original_r + 0.2f, original_g + 0.2f, original_b + 0.2f);
+    } else { // make it darker again
+      circles[circle_num].SetColor(original_r - 0.2f, original_g - 0.2f, original_b - 0.2f);
+    }
   }
 
-  // then we're going to draw all circles
+  // then we're going to draw all circles (do this in batches?)
   DrawAllCircles();
 }
 
-void MyApp::keyDown(KeyEvent event) { }
+void MyApp::keyDown(KeyEvent event) {
+}
 
 void MyApp::GenerateCircles() {
   // create a vector to hold coordinates for center of circle
@@ -104,7 +115,7 @@ void MyApp::DrawAllCircles() {
   }
 }
 
-float MyApp::CalculateColorDifference(cinder::Surface& display, cinder::vec2& original_loc, int original_radius) {
+float MyApp::CalculateColorDifferenceSquare(cinder::Surface& display, cinder::vec2& original_loc, int original_radius) {
   float total_difference = 0;
 
   // first get the square that we want to work on
@@ -113,15 +124,37 @@ float MyApp::CalculateColorDifference(cinder::Surface& display, cinder::vec2& or
   int y_starting_loc = original_loc.y - original_radius;
   int y_ending_loc = original_loc.y + original_radius;
 
-  // now compare rgb values of the old / new display with the arrays created earlier
-  for (int i = x_starting_loc; i < x_ending_loc; i++) {
-    for (int j = y_starting_loc; j < y_ending_loc; j++) {
-      total_difference += abs(array_R[i][j] - display.getPixel(cinder::vec2(i, j)).r);
-      total_difference += abs(array_B[i][j] - display.getPixel(cinder::vec2(i, j)).b);
-      total_difference += abs(array_G[i][j] - display.getPixel(cinder::vec2(i, j)).g);
+   // now compare rgb values of the old / new display with the arrays created earlier
+   for (int i = x_starting_loc; i < x_ending_loc; i++) {
+     for (int j = y_starting_loc; j < y_ending_loc; j++) {
+       if (i >= 0 && i < 1000 && j >= 0 && j < 1000) {
+         total_difference +=
+             abs(array_R[i][j] - display.getPixel(cinder::vec2(i, j)).r);
+         total_difference +=
+             abs(array_B[i][j] - display.getPixel(cinder::vec2(i, j)).b);
+         total_difference +=
+             abs(array_G[i][j] - display.getPixel(cinder::vec2(i, j)).g);
+       }
+     }
+   }
+  return total_difference;
+}
+float MyApp::CalculateColorDifference(Circle& altered_circle) {
+  float total_difference = 0;
+  cinder::vec2 original_loc = altered_circle.GetLocation();
 
-    }
-  }
+  int x = original_loc.x / 2;
+  int y = original_loc.y / 2;
+
+  float r_value = array_R[x][y];
+  float b_value = array_B[x][y];
+  total_difference +=
+      abs(array_R[x][y] - altered_circle.GetColor().r);
+  total_difference +=
+      abs(array_B[x][y] - altered_circle.GetColor().b);
+  total_difference +=
+      abs(array_G[x][y] - altered_circle.GetColor().g);
+
   return total_difference;
 }
 
