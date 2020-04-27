@@ -38,22 +38,22 @@ void MyApp::setup() {
     }
   }
 
+  // initially draw all circles and save as a display
+  // first draw all the circles
+  cinder::gl::clear();
+  DrawAllCircles();
+
+  // save the current display as a surface
+  original_display = copyWindowSurface();
 }
 
 void MyApp::update() { }
 
 void MyApp::draw() {
-  cinder::gl::clear();
-  // first draw all the circles
-  DrawAllCircles();
-
-  // save the current display as a surface
-  cinder::Surface original_display = copyWindowSurface();
-
   // we're going to choose to either change the color, size, or position of a random circle //TODO: change size or position
   int circle_num = cinder::Rand::randInt(num_of_circles);
 
-  // first get the original position, size and color of selected circle
+  // get the original position, size and color of selected circle
   Circle alter_circle = circles[circle_num];
 
   //float original_difference = CalculateColorDifference(alter_circle);
@@ -71,21 +71,22 @@ void MyApp::draw() {
   // choose which rgb to darken
   int which_val = cinder::Rand::randInt(3);
 
+
   if (darken == 1) { // darken the circle
     if (which_val == 0) {
-      circles[circle_num].SetColor(original_r - 0.2f, original_g, original_b);
+      circles[circle_num].SetColor(original_r - 0.15f, original_g, original_b);
     } else if (which_val == 1) {
-      circles[circle_num].SetColor(original_r, original_g - 0.2f, original_b);
+      circles[circle_num].SetColor(original_r, original_g - 0.15f, original_b);
     } else {
-      circles[circle_num].SetColor(original_r, original_g, original_b - 0.2f);
+      circles[circle_num].SetColor(original_r, original_g, original_b - 0.15f);
     }
   } else { // lighten the circle
     if (which_val == 0) {
-      circles[circle_num].SetColor(original_r + 0.2f, original_g, original_b);
+      circles[circle_num].SetColor(original_r + 0.15f, original_g, original_b);
     } else if (which_val == 1) {
-      circles[circle_num].SetColor(original_r, original_g + 0.2f, original_b);
+      circles[circle_num].SetColor(original_r, original_g + 0.15f, original_b);
     } else {
-      circles[circle_num].SetColor(original_r, original_g, original_b + 0.2f);
+      circles[circle_num].SetColor(original_r, original_g, original_b + 0.15f);
     }
   }
 
@@ -104,6 +105,9 @@ void MyApp::draw() {
   if (new_difference > original_difference) { // the new display is less similar to the original image
     circles[circle_num].SetColor(original_r, original_g, original_b);
   }
+
+  // now set the old display to the "new" display
+  original_display = new_display;
 }
 
 void MyApp::keyDown(KeyEvent event) {

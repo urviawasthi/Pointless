@@ -32,7 +32,7 @@ class Circle {
 
   // variables for random
   std::random_device rd;     // only used once to initialise (seed) engine
-  std::uniform_int_distribution<int> size = std::uniform_int_distribution<int> (85, 95); // random size generator
+  std::uniform_int_distribution<int> size = std::uniform_int_distribution<int> (90, 100); // random size generator
   std::mt19937 rng = std::mt19937 (rd());    // random-number engine used (Mersenne-Twister in this case)
 };
 
