@@ -79,16 +79,33 @@ void MyApp::draw() {
     // randomly choose whether to darken or lighten that color (the higher it is the lighter it gets)
     int darken = cinder::Rand::randInt(2);
     // choose which rgb to darken
-    //int which_val = cinder::Rand::randInt(3);
+    int which_val = cinder::Rand::randInt(3);
 
 
     if (darken == 1) { // darken the circle
-        circles[circle_num].SetColor(original_r - 0.2f, original_g - 0.2f, original_b - 0.2f);
+      if (which_val == 0) {
+        circles[circle_num].SetColor(original_r - 0.2f, original_g, original_b);
+      } else if (which_val == 1) {
+        circles[circle_num].SetColor(original_r, original_g - 0.2f, original_b);
+      } else {
+        circles[circle_num].SetColor(original_r, original_g, original_b - 0.2f);
+      }
     } else { // lighten the circle
-        circles[circle_num].SetColor(original_r + 0.2f, original_g + 0.2f, original_b + 0.2f);
+      if (which_val == 0) {
+        circles[circle_num].SetColor(original_r + 0.2f, original_g, original_b);
+      } else if (which_val == 1) {
+        circles[circle_num].SetColor(original_r, original_g + 0.2f, original_b);
+      } else {
+        circles[circle_num].SetColor(original_r, original_g, original_b + 0.2f);
+      }
     }
   } else if (what_to_change == 1) { // change the size of the circle
-    circles[circle_num].SetRadius(original_radius + 10);
+    int which_val = cinder::Rand::randInt(2);
+    if (which_val == 0) {
+      circles[circle_num].SetRadius(original_radius + 10);
+    } else {
+      circles[circle_num].SetRadius(original_radius - 10);
+    }
   } else { // change the position of the circle
     cinder::vec2 new_location;
     // choose whether to move up, down, left, or right
