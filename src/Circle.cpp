@@ -45,3 +45,9 @@ void Circle::Draw() {
 void Circle::SetColor(float r, float g, float b) {
   this->color = cinder::ColorA(r, g, b, opacity);
 }
+void Circle::SetRadius(int new_radius) {
+  this->radius = new_radius;
+}
+void Circle::SetLocation(cinder::vec2& new_location) {
+  this->location = new_location;
+}

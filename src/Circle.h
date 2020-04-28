@@ -21,6 +21,8 @@ class Circle {
   cinder::ColorA GetColor();
   void SetColor(float r, float g, float b);
   int GetRadius();
+  void SetRadius(int new_radius);
+  void SetLocation(cinder::vec2& new_location);
   // Copy constructor
   Circle(const Circle &circle);
 
@@ -32,7 +34,7 @@ class Circle {
 
   // variables for random
   std::random_device rd;     // only used once to initialise (seed) engine
-  std::uniform_int_distribution<int> size = std::uniform_int_distribution<int> (90, 100); // random size generator
+  std::uniform_int_distribution<int> size = std::uniform_int_distribution<int> (50, 55); // random size generator
   std::mt19937 rng = std::mt19937 (rd());    // random-number engine used (Mersenne-Twister in this case)
 };
 
