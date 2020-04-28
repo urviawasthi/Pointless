@@ -43,7 +43,7 @@ void MyApp::update() { }
 
 void MyApp::draw() {
   // we're going to choose to either change the color, size, or location of a random circle
-  int what_to_change = cinder::Rand::randInt(3); // rand to decide which factor to change
+  int what_to_change = cinder::Rand::randInt(2); // rand to decide which factor to change
 
   int circle_num = cinder::Rand::randInt(num_of_circles); // index of circle we want to change
   Circle alter_circle = circles[circle_num]; // circle we want to change
@@ -67,13 +67,10 @@ void MyApp::draw() {
 
   cinder::Area area( x_starting_loc, y_starting_loc, x_ending_loc, y_ending_loc );
 
-  if (counter == 0) { // this only executes the first time
-    // initially draw all circles and save as a display
-    cinder::gl::clear();
-    DrawAllCircles();
-    original_display = copyWindowSurface(area);
-    counter++;
-  }
+  // initially draw all circles and save as a display
+  cinder::gl::clear();
+  DrawAllCircles();
+  original_display = copyWindowSurface(area);
 
   if (what_to_change == 0) { // change the color of the circle
     // randomly choose whether to darken or lighten that color (the higher it is the lighter it gets)
@@ -84,27 +81,20 @@ void MyApp::draw() {
 
     if (darken == 1) { // darken the circle
       if (which_val == 0) {
-        circles[circle_num].SetColor(original_r - 0.2f, original_g, original_b);
+        circles[circle_num].SetColor(original_r - 0.05f, original_g, original_b);
       } else if (which_val == 1) {
-        circles[circle_num].SetColor(original_r, original_g - 0.2f, original_b);
+        circles[circle_num].SetColor(original_r, original_g - 0.05f, original_b);
       } else {
-        circles[circle_num].SetColor(original_r, original_g, original_b - 0.2f);
+        circles[circle_num].SetColor(original_r, original_g, original_b - 0.05f);
       }
     } else { // lighten the circle
       if (which_val == 0) {
-        circles[circle_num].SetColor(original_r + 0.2f, original_g, original_b);
+        circles[circle_num].SetColor(original_r + 0.05f, original_g, original_b);
       } else if (which_val == 1) {
-        circles[circle_num].SetColor(original_r, original_g + 0.2f, original_b);
+        circles[circle_num].SetColor(original_r, original_g + 0.05f, original_b);
       } else {
-        circles[circle_num].SetColor(original_r, original_g, original_b + 0.2f);
+        circles[circle_num].SetColor(original_r, original_g, original_b + 0.05f);
       }
-    }
-  } else if (what_to_change == 1) { // change the size of the circle
-    int which_val = cinder::Rand::randInt(2);
-    if (which_val == 0) {
-      circles[circle_num].SetRadius(original_radius + 10);
-    } else {
-      circles[circle_num].SetRadius(original_radius - 10);
     }
   } else { // change the position of the circle
     cinder::vec2 new_location;
@@ -145,14 +135,9 @@ void MyApp::draw() {
     // need to know what to undo
     if (what_to_change == 0) {
       circles[circle_num].SetColor(original_r, original_g, original_b); // change back the color
-    } else if (what_to_change == 1) {
-      circles[circle_num].SetRadius(original_radius);
     } else {
       circles[circle_num].SetLocation(original_loc);
     }
-  } else { // since new display is more similar
-    // now set the old display to the "new" display
-    original_display = new_display;
   }
 }
 
