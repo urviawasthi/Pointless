@@ -8,3 +8,5 @@
 4/24 Fixed many basic errors, started modularizing by adding smaller helper functions. 
 
 4/26 Added options to make the circles get larger in size, as well as change position in small increments to imitate the original image. 
+
+4/28 Decreased the size of the surface passed in in order to make program runtime smaller.
