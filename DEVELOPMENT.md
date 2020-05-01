@@ -10,3 +10,5 @@
 4/26 Added options to make the circles get larger in size, as well as change position in small increments to imitate the original image. 
 
 4/28 Decreased the size of the surface passed in in order to make program runtime smaller.
+
+4/29 Removed option for decreasing size of circles, instead am looking for a way to rescale calculating differences when the circles are of different sizes, hopefully to make the circle not get continually smaller as time goes on. 
