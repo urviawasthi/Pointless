@@ -12,3 +12,5 @@
 4/28 Decreased the size of the surface passed in in order to make program runtime smaller.
 
 4/29 Removed option for decreasing size of circles, instead am looking for a way to rescale calculating differences when the circles are of different sizes, hopefully to make the circle not get continually smaller as time goes on. 
+
+4/30 Added a cinder block, ImGui, in order to set the title of the picture within the window frame. 
