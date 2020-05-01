@@ -17,6 +17,7 @@ const int kWidth = 1000;
 const int kHeight = 1000;
 
 void SetUp(App::Settings* settings) {
+  //TODO: make starting window size of original image
   settings->setWindowSize(kWidth, kHeight);
   settings->setTitle("My CS 126 Application");
 }

@@ -42,6 +42,7 @@ void MyApp::setup() {
 void MyApp::update() { }
 
 void MyApp::draw() {
+    //TODO: rename global variables (and local values)
   // we're going to choose to either change the color, size, or location of a random circle
   int what_to_change = cinder::Rand::randInt(2); // rand to decide which factor to change
 
@@ -81,19 +82,19 @@ void MyApp::draw() {
 
     if (darken == 1) { // darken the circle
       if (which_val == 0) {
-        circles[circle_num].SetColor(original_r - 0.05f, original_g, original_b);
+        circles[circle_num].SetColor(original_r - 0.2f, original_g, original_b); // TODO: scale change over time
       } else if (which_val == 1) {
-        circles[circle_num].SetColor(original_r, original_g - 0.05f, original_b);
+        circles[circle_num].SetColor(original_r, original_g - 0.2f, original_b);
       } else {
-        circles[circle_num].SetColor(original_r, original_g, original_b - 0.05f);
+        circles[circle_num].SetColor(original_r, original_g, original_b - 0.2f);
       }
     } else { // lighten the circle
       if (which_val == 0) {
-        circles[circle_num].SetColor(original_r + 0.05f, original_g, original_b);
+        circles[circle_num].SetColor(original_r + 0.2f, original_g, original_b);
       } else if (which_val == 1) {
-        circles[circle_num].SetColor(original_r, original_g + 0.05f, original_b);
+        circles[circle_num].SetColor(original_r, original_g + 0.2f, original_b);
       } else {
-        circles[circle_num].SetColor(original_r, original_g, original_b + 0.05f);
+        circles[circle_num].SetColor(original_r, original_g, original_b + 0.2f);
       }
     }
   } else { // change the position of the circle
@@ -112,6 +113,11 @@ void MyApp::draw() {
     } else {
       new_location.x = original_loc.x - 40;
       new_location.y = original_loc.y + 40;
+    }
+    // however if new location is off the board, then reset
+    if (new_location.x < 0 || new_location.x > kWidth || new_location.y < 0 || new_location.y > kHeight) {
+      new_location.x = original_loc.x;
+      new_location.y = original_loc.y;
     }
     circles[circle_num].SetLocation(new_location);
   }
