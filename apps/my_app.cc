@@ -6,6 +6,7 @@
 #include <cinder/gl/gl.h>
 
 #include "../src/Circle.h"
+#include <cinder/CinderImGui.h>
 
 namespace myapp {
 
@@ -17,6 +18,8 @@ using std::vector;
 MyApp::MyApp() { }
 
 void MyApp::setup() {
+  ImGui::Initialize();
+
   // generate all circles and place into a vector
   while (circles.size() < num_of_circles) {
     GenerateCircles();
@@ -145,6 +148,11 @@ void MyApp::draw() {
       circles[circle_num].SetLocation(original_loc);
     }
   }
+
+  // set a title through cinder block, ImGui
+  ImVec2 size = ImVec2(100, 50);
+  ImGui::SetWindowSize(size);
+  ImGui::Text("Mona Lisa");
 }
 
 void MyApp::keyDown(KeyEvent event) {
