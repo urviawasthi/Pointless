@@ -18,7 +18,7 @@ using std::vector;
 MyApp::MyApp() { }
 
 void MyApp::setup() {
-  ImGui::Initialize();
+  //ImGui::Initialize();
 
   // generate all circles and place into a vector
   while (circles_.size() < num_of_circles_) {
@@ -27,7 +27,7 @@ void MyApp::setup() {
 
   // get the image as a surface
   cinder::Surface myPicture(cinder::loadImage("assets/monalisa.jpg"));
-  cinder::Area area( 0, 0, 500, 500 );
+  cinder::Area area( 0, 0, 500, 500);
   cinder::Surface::Iter iter = myPicture.getIter( area );
 
   // iterate through the rgb arrays and fill them with the value at that pixel
@@ -101,10 +101,10 @@ void MyApp::draw() {
     }
   }
 
-  // set a title through cinder block, ImGui
+/*  // set a title through cinder block, ImGui
   ImVec2 size = ImVec2(100, 50);
   ImGui::SetWindowSize(size);
-  ImGui::Text("Mona Lisa");
+  ImGui::Text("Mona Lisa");*/
 }
 
 void MyApp::keyDown(KeyEvent event) {
@@ -169,6 +169,7 @@ float MyApp::CalculateColorDifference(Circle& altered_circle) {
 
   return total_difference;
 }
+
 float MyApp::CalculateColorDifferenceDisplay(cinder::Surface& display) {
   float total_difference = 0;
   // now compare rgb values of the old / new display with the arrays created earlier
@@ -188,6 +189,7 @@ float MyApp::CalculateColorDifferenceDisplay(cinder::Surface& display) {
   }
   return total_difference;
 }
+
 void MyApp::ChangeCircleColor(int circle_num, float original_r, float original_g, float original_b) {
   // randomly choose whether to darken or lighten that color (the higher it is the lighter it gets)
   int darken = cinder::Rand::randInt(2);
@@ -197,7 +199,7 @@ void MyApp::ChangeCircleColor(int circle_num, float original_r, float original_g
 
   if (darken == 1) { // darken the circle
     if (which_val == 0) {
-      circles_[circle_num].SetColor(original_r - 0.2f, original_g, original_b); // TODO: scale change over time
+      circles_[circle_num].SetColor(original_r - 0.2f, original_g, original_b);
     } else if (which_val == 1) {
       circles_[circle_num].SetColor(original_r, original_g - 0.2f, original_b);
     } else {

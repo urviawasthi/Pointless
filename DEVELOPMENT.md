@@ -14,3 +14,5 @@
 4/29 Removed option for decreasing size of circles, instead am looking for a way to rescale calculating differences when the circles are of different sizes, hopefully to make the circle not get continually smaller as time goes on. 
 
 4/30 Added a cinder block, ImGui, in order to set the title of the picture within the window frame. 
+
+5/2 Made image fit to the window. 
