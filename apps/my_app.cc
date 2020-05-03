@@ -195,23 +195,24 @@ void MyApp::ChangeCircleColor(int circle_num, float original_r, float original_g
   int darken = cinder::Rand::randInt(2);
   // choose which rgb to darken
   int which_val = cinder::Rand::randInt(3);
-
+  // how much to change the color by
+  float change = 0.2f;
 
   if (darken == 1) { // darken the circle
     if (which_val == 0) {
-      circles_[circle_num].SetColor(original_r - 0.2f, original_g, original_b);
+      circles_[circle_num].SetColor(original_r - change, original_g, original_b);
     } else if (which_val == 1) {
-      circles_[circle_num].SetColor(original_r, original_g - 0.2f, original_b);
+      circles_[circle_num].SetColor(original_r, original_g - change, original_b);
     } else {
-      circles_[circle_num].SetColor(original_r, original_g, original_b - 0.2f);
+      circles_[circle_num].SetColor(original_r, original_g, original_b - change);
     }
   } else { // lighten the circle
     if (which_val == 0) {
-      circles_[circle_num].SetColor(original_r + 0.2f, original_g, original_b);
+      circles_[circle_num].SetColor(original_r + change, original_g, original_b);
     } else if (which_val == 1) {
-      circles_[circle_num].SetColor(original_r, original_g + 0.2f, original_b);
+      circles_[circle_num].SetColor(original_r, original_g + change, original_b);
     } else {
-      circles_[circle_num].SetColor(original_r, original_g, original_b + 0.2f);
+      circles_[circle_num].SetColor(original_r, original_g, original_b + change);
     }
   }
 }
