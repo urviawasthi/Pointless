@@ -24,15 +24,16 @@ class MyApp : public cinder::app::App {
   float CalculateColorDifferenceSquare(cinder::Surface& display, cinder::vec2& original_loc, int original_radius);
   float CalculateColorDifferenceDisplay(cinder::Surface& display);
   float CalculateColorDifference(Circle& altered_circle);
+  void ChangeCircleColor(int circle_num, float original_r, float original_g, float original_b);
+  void ChangeCirclePosition(int circle_num, cinder::vec2& original_loc);
  private:
-  std::vector<Circle> circles; // vector with all circles
-  int num_of_circles = 300;   // number of circles we want to produce
-  const int kWidth = 1000;   // width of display
-  const int kHeight = 1000;  // height of display
+  std::vector<Circle> circles_; // vector with all circles
+  int num_of_circles_ = 300;   // number of circles we want to produce
+  const int kWidth_ = 1000;   // width of display
+  const int kHeight_ = 1000;  // height of display
   float array_B[500][500]{}; // array holding all blue values for pixel of image
   float array_G[500][500]{}; // array holding all green values for pixel of image
   float array_R[500][500]{}; // array holding all blue values for pixel of image
-  int counter = 0;
   cinder::Surface original_display;
 };
 
