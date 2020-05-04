@@ -18,7 +18,7 @@ using std::vector;
 MyApp::MyApp() { }
 
 void MyApp::setup() {
-  //ImGui::Initialize();
+  ImGui::Initialize();
 
   // generate all circles and place into a vector
   while (circles_.size() < num_of_circles_) {
@@ -26,7 +26,7 @@ void MyApp::setup() {
   }
 
   // get the image as a surface
-  cinder::Surface myPicture(cinder::loadImage("assets/monalisa.jpg"));
+  cinder::Surface myPicture(cinder::loadImage("assets/corona.jpg"));
   cinder::Area area( 0, 0, 500, 500);
   cinder::Surface::Iter iter = myPicture.getIter( area );
 
@@ -101,10 +101,10 @@ void MyApp::draw() {
     }
   }
 
-/*  // set a title through cinder block, ImGui
+ // set a title through cinder block, ImGui
   ImVec2 size = ImVec2(100, 50);
   ImGui::SetWindowSize(size);
-  ImGui::Text("Mona Lisa");*/
+  ImGui::Text("Mona Lisa");
 }
 
 void MyApp::keyDown(KeyEvent event) {

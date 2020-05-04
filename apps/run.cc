@@ -14,12 +14,13 @@ using namespace std;
 namespace myapp {
 
 const int kSamples = 8;
+const int kWidth = 1000;
+const int kHeight = 1000;
 
 void SetUp(App::Settings* settings) {
-  //TODO: make starting window size of original image
   int x = stoi(settings->getCommandLineArgs().at(1));
   int y = stoi(settings->getCommandLineArgs().at(2));
-  settings->setWindowSize(2 * x, 2 * y);
+  settings->setWindowSize(kWidth, kHeight);
   settings->setTitle("My CS 126 Application");
 }
 
